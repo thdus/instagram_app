@@ -30,30 +30,16 @@
             android:hint="아이디"
             android:paddingLeft="27dp"
             android:textSize="18dp"
-            android:inputType="text"
             android:textColorHint="#070707"
             android:background="@drawable/insta_input_bg"/>
 
         <EditText
-            android:id="@+id/pw_input1"
+            android:id="@+id/pw_input"
             android:layout_width="356dp"
             android:layout_height="62dp"
             android:hint="비밀번호"
             android:textSize="18dp"
-            android:inputType="textPassword"
             android:paddingLeft="27dp"
-            android:textColorHint="#070707"
-            android:background="@drawable/insta_input_bg"/>
-
-        <EditText
-            android:id="@+id/pw_input2"
-            android:layout_width="356dp"
-            android:layout_height="62dp"
-            android:hint="비밀번호 확인"
-            android:textSize="18dp"
-            android:paddingLeft="27dp"
-            android:inputType="textPassword"
-            android:layout_marginBottom="10dp"
             android:textColorHint="#070707"
             android:background="@drawable/insta_input_bg"/>
 
@@ -62,20 +48,20 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <TextView
-        android:id="@+id/insta_login"
+        android:id="@+id/insta_join"
         android:layout_marginTop="43dp"
         android:textSize="18dp"
         android:textColor="#1868e8"
         android:layout_marginBottom="90dp"
-        android:text="로그인하기"
+        android:text="가입하기"
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
+    
     <TextView
-        android:id="@+id/join_btn"
+        android:id="@+id/login_btn"
         android:layout_width="162dp"
-        android:text="가입"
+        android:text="로그인하기"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="20dp"

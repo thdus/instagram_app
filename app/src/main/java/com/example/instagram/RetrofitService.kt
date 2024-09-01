@@ -6,8 +6,8 @@ import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
-class Token(
-    val token: String
+class UserToken(
+    val token: String, val username: String
 )
 
 interface RetrofitService {
@@ -15,5 +15,11 @@ interface RetrofitService {
     @FormUrlEncoded
     fun instaLogin(
             @FieldMap params: HashMap<String, Any>
-    ): Call<Token>
+    ): Call<UserToken>
+
+    @POST("user/signup/")
+    @FormUrlEncoded
+    fun instaJoin(
+        @FieldMap params: HashMap<String, Any>
+    ): Call<UserToken>
 }
