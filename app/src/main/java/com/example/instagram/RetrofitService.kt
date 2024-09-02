@@ -5,6 +5,7 @@ import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import java.io.File
 
 class User(
     val token: String, val username: String, val id: Int
@@ -17,6 +18,8 @@ class InstaPost(
 class OwnerProfile(
     val username: String, val image: String
 )
+
+
 
 interface RetrofitService {
 

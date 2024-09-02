@@ -5,8 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,15 +42,59 @@ class InstaFeedFragment : Fragment() {
                 response: Response<ArrayList<InstaPost>>
             ) {
                 val postlist = response.body()
-                postlist!!.forEach{
-                    Log.d("instaa", it.content)
-                }
+                val postRecyclerView = view.findViewById<RecyclerView>(R.id.feed_list)
+                postRecyclerView.adapter=PostRecyclerViewAdapter(
+                    postlist!!,
+                    LayoutInflater.from()
+                )
             }
 
             override fun onFailure(call: Call<ArrayList<InstaPost>>, t: Throwable) {
-                TODO("Not yet implemented")
             }
         })
     }
+
+    class PostRecyclerViewAdapter(
+        val postList : ArrayList<InstaPost>,
+        val inflater : LayoutInflater
+        val glide: RequestManager
+    ) : RecyclerView.Adapter<PostRecyclerViewAdapter.ViewHolder>() {
+
+        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            val ownerImg: ImageView
+            val ownerUsername: TextView
+            val postImg: ImageView
+            val postContent: TextView
+
+            init {
+                ownerImg = itemView.findViewById(R.id.owner_img)
+                ownerUsername = itemView.findViewById(R.id.owner_username)
+                postImg = itemView.findViewById(R.id.post_img)
+                postContent = itemView.findViewById(R.id.post_content)
+            }
+
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            return ViewHolder(
+                inflater.inflate(R.layout.post_item,parent,false)
+            )
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            val post = postList.get(position)
+            glide.load(post.owner_profile.image).into(holder.ownerImg)
+            glide.load(post.image).into(holder.postImg)
+            holder.ownerUsername.text = post.owner_profile.username
+            holder.postContent.text = post.content
+
+        }
+
+        override fun getItemCount(): Int {
+            return postList.size
+        }
+    }
+
+
 
 }
