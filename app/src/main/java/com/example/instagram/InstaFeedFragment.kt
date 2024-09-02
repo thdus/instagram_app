@@ -18,6 +18,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class InstaFeedFragment : Fragment() {
+
+    lateinit var retrofitService: RetrofitService
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,19 +36,23 @@ class InstaFeedFragment : Fragment() {
             .baseUrl("http://mellowcode.org/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val retrofitService = retrofit.create(RetrofitService::class.java)
+        retrofitService = retrofit.create(RetrofitService::class.java)
 
         retrofitService.getInstagramPosts().enqueue(object  : Callback<ArrayList<InstaPost>>{
             override fun onResponse(
                 call: Call<ArrayList<InstaPost>>,
                 response: Response<ArrayList<InstaPost>>
             ) {
-                val postlist = response.body()
+                val postList = response.body()
+
                 val postRecyclerView = view.findViewById<RecyclerView>(R.id.feed_list)
                 postRecyclerView.adapter=PostRecyclerViewAdapter(
-                    postlist!!,
-                    LayoutInflater.from()
-                )
+                    postList!!,
+                    LayoutInflater.from(activity),
+                    Glide.with(activity!!),
+                    this@InstaFeedFragment,
+                    activity as (InstaMainActivity)
+              )
             }
 
             override fun onFailure(call: Call<ArrayList<InstaPost>>, t: Throwable) {
@@ -56,8 +62,10 @@ class InstaFeedFragment : Fragment() {
 
     class PostRecyclerViewAdapter(
         val postList : ArrayList<InstaPost>,
-        val inflater : LayoutInflater
-        val glide: RequestManager
+        val inflater : LayoutInflater,
+        val glide: RequestManager,
+        val instaFeedFragment: InstaFeedFragment,
+        val activity: InstaMainActivity
     ) : RecyclerView.Adapter<PostRecyclerViewAdapter.ViewHolder>() {
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -83,8 +91,14 @@ class InstaFeedFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val post = postList.get(position)
-            glide.load(post.owner_profile.image).into(holder.ownerImg)
-            glide.load(post.image).into(holder.postImg)
+
+            post.owner_profile.image.let{
+                glide.load(it).centerCrop().into(holder.ownerImg)
+            }
+            post.image.let{
+                glide.load(it).centerCrop().into(holder.postImg)
+
+            }
             holder.ownerUsername.text = post.owner_profile.username
             holder.postContent.text = post.content
 

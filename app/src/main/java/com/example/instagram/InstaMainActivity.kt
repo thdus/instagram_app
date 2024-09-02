@@ -27,14 +27,14 @@ class InstaMainActivity : AppCompatActivity() {
         pager.adapter = InstaMainPagerAdapter(this, 3)
 
         tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
-            override fun onTabSelected(tab: Tab?) {
+            override fun onTabSelected(tab:  TabLayout.Tab?) {
                 pager.setCurrentItem(tab!!.position)
             }
 
-            override fun onTabUnselected(tab: Tab?) {
+            override fun onTabUnselected(tab:  TabLayout.Tab?) {
             }
 
-            override fun onTabReselected(tab: Tab?) {
+            override fun onTabReselected(tab:  TabLayout.Tab?) {
             }
         })
     }
