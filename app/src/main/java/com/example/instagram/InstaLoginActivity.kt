@@ -41,19 +41,21 @@ class InstaLoginActivity : AppCompatActivity() {
             val user = HashMap<String, Any>()
             user.put("username", username)
             user.put("password", password)
-            retrofitService.instaLogin(user).enqueue(object: Callback<UserToken> {
-                override fun onResponse(call: Call<UserToken>, response: Response<UserToken>) {
+            retrofitService.instaLogin(user).enqueue(object: Callback<User> {
+                override fun onResponse(call: Call<User>, response: Response<User>) {
                     if(response.isSuccessful){
-                        val userToken = response.body()!!
+                        val user = response.body()!!
                         val sharedPreferences =
                             getSharedPreferences("user_info", Context.MODE_PRIVATE)
                         val editor : SharedPreferences.Editor = sharedPreferences.edit()
-                        editor.putString("token", userToken.token)
+                        editor.putString("token", user.token)
+                        editor.putString("user_id", user.id.toString())
                         editor.commit()
+                        startActivity(Intent(this@InstaLoginActivity, InstaMainActivity::class.java))
                     }
                 }
 
-                override fun onFailure(call: Call<UserToken>, t: Throwable) {
+                override fun onFailure(call: Call<User>, t: Throwable) {
                 }
             })
     }}
