@@ -92,8 +92,8 @@ class InstaFeedFragment : Fragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val post = postList.get(position)
 
-            post.owner_profile.image.let{
-                glide.load(it).centerCrop().into(holder.ownerImg)
+            post.owner_profile.image?.let{
+                glide.load(it).centerCrop().circleCrop().into(holder.ownerImg)
             }
             post.image.let{
                 glide.load(it).centerCrop().into(holder.postImg)
