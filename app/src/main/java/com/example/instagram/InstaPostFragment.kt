@@ -38,7 +38,7 @@ class InstaPostFragment : Fragment() {
     lateinit var imagePickerLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreateView(
-        inflater: LayoutInflater,q
+        inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {

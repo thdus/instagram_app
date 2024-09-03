@@ -1,5 +1,6 @@
 package com.example.instagram
 
+import android.app.appsearch.StorageInfo
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -25,9 +26,19 @@ class OwnerProfile(
     val username: String, val image: String?
 )
 
+class UserInfo(
+    val id : Int,
+    val username:String,
+    val profile: OwnerProfile
+)
 
 
 interface RetrofitService {
+
+    @GET("user/userInfo/")
+    fun getUserInfo(
+        @HeaderMap headers: Map<String, String>,
+    ):Call<UserInfo>
 
     @Multipart
     @POST("instagram/post/")
