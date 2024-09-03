@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:text="프로필 편집"
+        android:textColor="#1d1d1d"
+        android:layout_marginLeft="23dp"
+        android:layout_marginBottom="16dp"/>
+
+    <ImageView
+        android:id="@+id/profile_img"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:src="@drawable/btn_outsta_my"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/change_img"
+        android:layout_width="144dp"
+        android:layout_height="42dp"
+        android:background="@drawable/activity_insta_login"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:layout_gravity="center_horizontal"
+        android:textSize="18dp"
+        android:layout_marginTop="19dp"
+        android:text="변경하기"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
