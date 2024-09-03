@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:layout_width="140dp"
+        android:layout_height="30dp"
+        android:src="@drawable/logo_outstagram"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="22dp"/>
+
+    <ImageView
+        android:id="@+id/selected_img"
+        android:layout_width="match_parent"
+        android:layout_height="344dp"
+        android:layout_marginRight="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginBottom="31dp"/>
+
+    <EditText
+        android:id="@+id/selected_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="문구입력"
+        android:textColorHint="#707070"
+        android:layout_marginRight="23dp"
+        android:layout_marginLeft="23dp"
+        android:textSize="20dp"
+        android:layout_marginBottom="37dp"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/upload"
+        android:layout_width="114dp"
+        android:layout_height="42dp"
+        android:text="게시"
+        android:background="@drawable/activity_insta_login"
+        android:textColor="@color/white"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"/>
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
