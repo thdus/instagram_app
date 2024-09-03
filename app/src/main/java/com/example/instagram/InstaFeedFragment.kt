@@ -1,13 +1,20 @@
 package com.example.instagram
 
+import android.content.Context
+import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -21,7 +28,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 class InstaFeedFragment : Fragment() {
 
     lateinit var retrofitService: RetrofitService
-    lateinit var postRecyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,8 +40,7 @@ class InstaFeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        postRecyclerView = view.findViewById(R.id.feed_list)
-        postRecyclerView.layoutManager = LinearLayoutManager(activity)
+       val feedListView = view.findViewById<RecyclerView>(R.id.feed_list)
 
         val retrofit = Retrofit.Builder()
             .baseUrl("http://mellowcode.org/")
@@ -50,22 +55,34 @@ class InstaFeedFragment : Fragment() {
             ) {
                 val postList = response.body()
 
-                if (postList != null) {
-                    postList.forEach {
-                        Log.d("instaa", it.owner_profile.username)
-                    }
+                val postRecyclerView = view.findViewById<RecyclerView>(R.id.feed_list)
 
                     // Set the adapter once the data is loaded
                     postRecyclerView.adapter = PostRecyclerViewAdapter(
-                        postList,
+                        postList!!,
                         LayoutInflater.from(activity),
-                        Glide.with(requireActivity())
+                        Glide.with(activity!!),
+                        this@InstaFeedFragment,
+                        activity as (InstaMainActivity)
                     )
                 }
-            }
+
 
             override fun onFailure(call: Call<ArrayList<InstaPost>>, t: Throwable) {
-                Log.e("InstaFeedFragment", "Failed to fetch posts", t)
+            }
+        })
+    }
+
+    fun postLike(post_id: Int){
+        retrofitService.postLike(post_id).enqueue(object :Callback<Any>{
+            override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                if (response.isSuccessful){
+                Toast.makeText(activity, "좋아요!", Toast.LENGTH_SHORT).show()
+            }}
+
+            override fun onFailure(call: Call<Any>, t: Throwable) {
+                Toast.makeText(activity, "좋아요 실패", Toast.LENGTH_SHORT).show()
+
             }
         })
     }
@@ -73,19 +90,52 @@ class InstaFeedFragment : Fragment() {
     class PostRecyclerViewAdapter(
         val postList: ArrayList<InstaPost>,
         val inflater: LayoutInflater,
-        val glide: RequestManager
+        val glide: RequestManager,
+        val instaFeedFragment: InstaFeedFragment,
+        val activity: InstaMainActivity
+
     ) : RecyclerView.Adapter<PostRecyclerViewAdapter.ViewHolder>() {
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val ownerImg: ImageView = itemView.findViewById(R.id.owner_img)
-            val ownerUsername: TextView = itemView.findViewById(R.id.owner_username)
-            val postImg: ImageView = itemView.findViewById(R.id.post_img)
-            val postContent: TextView = itemView.findViewById(R.id.post_content)
+            val ownerImg: ImageView
+            val ownerUsername: TextView
+            val postImg: ImageView
+            val postContent: TextView
+            val postLayer: ImageView
+            val postHeart: ImageView
+
+
+            init {
+                ownerImg= itemView.findViewById(R.id.owner_img)
+                ownerUsername = itemView.findViewById(R.id.owner_username)
+                postImg = itemView.findViewById(R.id.post_img)
+                postContent = itemView.findViewById(R.id.post_content)
+                postLayer = itemView.findViewById(R.id.post_layer)
+                postHeart = itemView.findViewById(R.id.post_heart)
+
+                postImg.setOnClickListener {
+                    instaFeedFragment.postLike(postList.get(adapterPosition).id)
+                    Thread{
+                            activity.runOnUiThread{
+                                 postLayer.visibility = VISIBLE
+                                 postHeart.visibility = VISIBLE
+
+                            }
+                        Thread.sleep(2000)
+                        activity.runOnUiThread{
+                            postLayer.visibility = INVISIBLE
+                            postHeart.visibility = INVISIBLE
+
+                        }
+                    }.start()
+                }
+            }
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             return ViewHolder(
                 inflater.inflate(R.layout.post_item, parent, false)
+
             )
         }
 
