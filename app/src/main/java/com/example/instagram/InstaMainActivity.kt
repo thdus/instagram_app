@@ -14,6 +14,9 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.Tab
 
 class InstaMainActivity : AppCompatActivity() {
+
+    val instaPostFragment = InstaPostFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_insta_main)
@@ -24,11 +27,14 @@ class InstaMainActivity : AppCompatActivity() {
         tabs.addTab(tabs.newTab().setIcon(R.drawable.btn_outsta_my))
 
         val pager = findViewById<ViewPager2>(R.id.main_pager)
-        pager.adapter = InstaMainPagerAdapter(this, 3)
+        pager.adapter = InstaMainPagerAdapter(this, 3, instaPostFragment)
 
         tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
-            override fun onTabSelected(tab:  TabLayout.Tab?) {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
                 pager.setCurrentItem(tab!!.position)
+                if (tab!!.position == 1){
+                    instaPostFragment.makePost()
+                }
             }
 
             override fun onTabUnselected(tab:  TabLayout.Tab?) {
@@ -42,7 +48,8 @@ class InstaMainActivity : AppCompatActivity() {
 
 class InstaMainPagerAdapter(
     fragmentActivity : FragmentActivity,
-    val tabCount : Int
+    val tabCount : Int,
+    val instaPostFragment: InstaPostFragment
     ) : FragmentStateAdapter(fragmentActivity){
     override fun getItemCount(): Int {
         return tabCount
@@ -51,7 +58,7 @@ class InstaMainPagerAdapter(
     override fun createFragment(position: Int): Fragment {
         when(position){
             0-> return InstaFeedFragment()
-            1 -> return InstaPostFragment()
+            1 -> {return InstaPostFragment()}
             else -> return InstaProfileFragment()
 
         }
