@@ -30,7 +30,7 @@ class InstaLoginActivity : AppCompatActivity() {
         findViewById<EditText>(R.id.id_input).doAfterTextChanged {
             username = it.toString()
         }
-        findViewById<EditText>(R.id.id_input).doAfterTextChanged {
+        findViewById<EditText>(R.id.pw_input).doAfterTextChanged {
             password = it.toString()
         }
         findViewById<TextView>(R.id.insta_join).setOnClickListener {
@@ -50,7 +50,7 @@ class InstaLoginActivity : AppCompatActivity() {
                         val editor : SharedPreferences.Editor = sharedPreferences.edit()
                         editor.putString("token", user.token)
                         editor.putString("user_id", user.id.toString())
-                        editor.commit()
+                        val commit = editor.commit()
                         startActivity(Intent(this@InstaLoginActivity, InstaMainActivity::class.java))
                     }
                 }

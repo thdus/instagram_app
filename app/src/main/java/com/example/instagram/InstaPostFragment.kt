@@ -79,15 +79,13 @@ class InstaPostFragment: Fragment() {
                 "user_info",
                 Context.MODE_PRIVATE)
             val token = sp.getString("token", "")
-            header.put("Authorization", token!!)
+            header.put("Authorization", "token "+token!!)
 
             retrofitService.uploadPost(header, body, content).enqueue(object : Callback<Any>{
                 override fun onResponse(call: Call<Any>, response: Response<Any>) {
-                    TODO("Not yet implemented")
                 }
 
                 override fun onFailure(call: Call<Any>, t: Throwable) {
-                    TODO("Not yet implemented")
                 }
             })
 
