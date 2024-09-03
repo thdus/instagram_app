@@ -1,0 +1,109 @@
+[33mcommit 4f21da3476af40686b5c84b92d52c4318acc71e8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Merge: f612377 dbf9cc7
+Author: soyeon <sykim0659@naver.com>
+Date:   Tue Sep 3 20:03:04 2024 +0900
+
+    Merge branch 'main' of https://github.com/thdus/instagram_app
+    merge
+
+[33mcommit f61237758d982e736639d245362fb49018108e29[m
+Author: soyeon <sykim0659@naver.com>
+Date:   Tue Sep 3 19:38:51 2024 +0900
+
+    인스타 그램 - 프로필 수정 UI 구현
+
+[33mcommit dbf9cc76263e4fc96780e7e7a92b7b918083cc9b[m
+Author: soyeon <sykim0659@naver.com>
+Date:   Tue Sep 3 19:38:51 2024 +0900
+
+    인스타 그램 - 프로필 수정 UI rngus
+
+[33mcommit 8aa08baacabb245c97e99d59cd9daa91df1209cd[m
+Author: soyeon <sykim0659@naver.com>
+Date:   Tue Sep 3 18:09:05 2024 +0900
+
+    포스트 업로드 기능 구현
+
+[33mcommit 1e1e577131aa57262fb0bf3807052b93a3a86ca8[m
+Author: soyeon <sykim0659@naver.com>
+Date:   Tue Sep 3 17:19:32 2024 +0900
+
+    포스트 업로드 기능 구현
+
+[33mcommit 64756acd67b40c79434165d0c48b20abf628e31d[m
+Author: soyeon <sykim0659@naver.com>
+Date:   Tue Sep 3 16:37:02 2024 +0900
+
+    포스트 업로드 기능 구현
+
+[33mcommit 60873f8ccdb0ac555d55cb21723d4f118e89fb63[m
+Author: soyeon <sykim0659@naver.com>
+Date:   Tue Sep 3 15:52:46 2024 +0900
+
+    좋아요 기능 구현
+
+[33mcommit 3844e9315081ba6ca979c4b66548d3b95ca2e7de[m
+Author: soyeon <sykim0659@naver.com>
+Date:   Tue Sep 3 01:53:37 2024 +0900
+
+     좋아요 기능 화면 구성
+
+[33mcommit ac145d9862d1ae76151bd9d94d687f63056d75ab[m
+Author: soyeon <sykim0659@naver.com>
+Date:   Tue Sep 3 00:40:23 2024 +0900
+
+    피드 기능 구현
+
+[33mcommit e42e47defa760deae2cac79d4ab38665488bd02f[m
+Author: soyeon <sykim0659@naver.com>
+Date:   Tue Sep 3 00:31:03 2024 +0900
+
+    피드 기능 구현
+
+[33mcommit e66ca708eb02d2438cc8ec4843e6f48f675635ac[m
+Author: soyeon <sykim0659@naver.com>
+Date:   Mon Sep 2 22:59:42 2024 +0900
+
+    피드 기능 구현
+
+[33mcommit dd5210e98394cf231b08b9b6a3b275c6dcb4981f[m
+Author: soyeon <sykim0659@naver.com>
+Date:   Mon Sep 2 22:14:45 2024 +0900
+
+    피드 기능 구현
+
+[33mcommit 4df98c3f77f26e49d86945dbb9cc264770d6eb51[m
+Author: soyeon <sykim0659@naver.com>
+Date:   Mon Sep 2 20:08:41 2024 +0900
+
+    메뉴바 기능 구현
+
+[33mcommit d66aa3d7a578405c8231c51aa412083373840836[m
+Author: soyeon <sykim0659@naver.com>
+Date:   Mon Sep 2 15:13:44 2024 +0900
+
+    메뉴바 기능 구현
+
+[33mcommit 08f75b8349a11437d56165c1e45dc187a5acf63f[m
+Author: soyeon <sykim0659@naver.com>
+Date:   Mon Sep 2 03:12:58 2024 +0900
+
+    로그인여부 판단 기능 구현
+
+[33mcommit 37d4415a28f46ed780582419152586d36f9eddb7[m
+Author: soyeon <sykim0659@naver.com>
+Date:   Mon Sep 2 02:45:39 2024 +0900
+
+    가입 기능 구현
+
+[33mcommit 9d8e10e13709c409c5b11f6aba338a0616f5f7af[m
+Author: soyeon <sykim0659@naver.com>
+Date:   Mon Sep 2 02:05:37 2024 +0900
+
+    로그인 기능 구현
+
+[33mcommit 1936cd491d262cc01370737ab00d328ffa98957d[m
+Author: soyeon <sykim0659@naver.com>
+Date:   Mon Sep 2 01:24:21 2024 +0900
+
+    인스타 그램 - 로그인 화면 구현
