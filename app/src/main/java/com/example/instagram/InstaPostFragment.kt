@@ -1,5 +1,6 @@
 package com.example.instagram
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
@@ -36,6 +37,7 @@ class InstaPostFragment : Fragment() {
     lateinit var selectedImageView: ImageView
     lateinit var upload: TextView
     lateinit var imagePickerLauncher: ActivityResultLauncher<Intent>
+    var isViewCreated = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,7 +47,34 @@ class InstaPostFragment : Fragment() {
         return inflater.inflate(R.layout.insta_post_fragment, container, false)
     }
 
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        selectedContent = view.findViewById(R.id.selected_content)
+        selectedImageView = view.findViewById(R.id.selected_img)
+        upload = view.findViewById(R.id.upload)
+
+        val glide = Glide.with(activity as InstaMainActivity)
+        imagePickerLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                    result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    imageUri = result.data?.data
+                    Glide.with(this).load(imageUri).into(selectedImageView)
+            }
+    }
+        isViewCreated = true
+        makePost()
+    }
+
     fun makePost() {
+        if (!isViewCreated || !::imagePickerLauncher.isInitialized) {
+            // imagePickerLauncher가 초기화되지 않았을 경우에 대한 처리
+            Log.e("InstaPostFragment", "imagePickerLauncher is not initialized")
+            return
+        }
         imagePickerLauncher.launch(
             Intent(Intent.ACTION_PICK).apply {
                 this.type = MediaStore.Images.Media.CONTENT_TYPE
@@ -93,21 +122,6 @@ class InstaPostFragment : Fragment() {
                 }
             })
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        selectedContent = view.findViewById(R.id.selected_content)
-        selectedImageView = view.findViewById(R.id.selected_img)
-        upload = view.findViewById(R.id.upload)
-
-        val glide = Glide.with(activity as InstaMainActivity)
-        imagePickerLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                imageUri = it.data!!.data
-                glide.load(imageUri).into(selectedImageView)
-            }
     }
 
     private fun getRealFile(uri: Uri): File? {

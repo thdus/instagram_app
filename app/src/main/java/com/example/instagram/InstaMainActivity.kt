@@ -1,6 +1,7 @@
 package com.example.instagram
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -32,10 +33,15 @@ class InstaMainActivity : AppCompatActivity() {
         tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 pager.setCurrentItem(tab!!.position)
-                if (tab!!.position == 1){
-                    instaPostFragment.makePost()
+                if (tab.position == 1) {
+                    if (instaPostFragment.isViewCreated) {
+                        instaPostFragment.makePost()
+                    } else {
+                        Log.e("InstaMainActivity", "InstaPostFragment view is not yet created.")
+                    }
                 }
             }
+
 
             override fun onTabUnselected(tab:  TabLayout.Tab?) {
             }
