@@ -8,16 +8,23 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ReportFragment.Companion.reportFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 
 class InstaChangeProfileActivity : AppCompatActivity() {
@@ -45,7 +52,7 @@ class InstaChangeProfileActivity : AppCompatActivity() {
     }
     )
 
-        findViewById<ImageView>(R.id.change_img).setOnClickListener {
+        findViewById<TextView>(R.id.change_img).setOnClickListener {
             val file = getRealFile(imageUri!!)
             val reqeustFile = RequestBody.create(
                 MediaType.parse(
@@ -60,6 +67,25 @@ class InstaChangeProfileActivity : AppCompatActivity() {
             )
             val token = sp.getString("token", "")
             header.put("Authorization", "token " + token!!)
+            val userId = sp.getString("user_id", "")!!.toInt()
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl("http://mellowcode.org/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+            val retrofitService = retrofit.create(RetrofitService::class.java)
+            val user = RequestBody.create(MultipartBody.FORM, userId.toString())
+
+
+            retrofitService.changeProfile(userId, header, body, user).enqueue(object :Callback<Any>{
+                override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onFailure(call: Call<Any>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
         }
     }
 
