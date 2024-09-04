@@ -37,7 +37,24 @@ class InstaProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         userProfileImageView = view.findViewById(R.id.profile_img)
+        view.findViewById<TextView>(R.id.change_img).setOnClickListener {
+            startActivity(
+                Intent(
+                    activity as InstaMainActivity,
+                    InstaChangeProfileActivity::class.java
+                )
+            )
 
+
+
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+
+        val glide = Glide.with(activity as InstaMainActivity)
         val retrofit = Retrofit.Builder()
             .baseUrl("http://mellowcode.org/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -51,8 +68,6 @@ class InstaProfileFragment : Fragment() {
         )
         val token = sp.getString("token", "")
         header.put("Authorization", "token " + token!!)
-
-        val glide = Glide.with(activity as InstaMainActivity)
 
         retrofitService.getUserInfo(header).enqueue(object : Callback<UserInfo>{
             override fun onResponse(call: Call<UserInfo>, response: Response<UserInfo>) {
@@ -70,9 +85,5 @@ class InstaProfileFragment : Fragment() {
             override fun onFailure(call: Call<UserInfo>, t: Throwable) {
             }
         })
-        view.findViewById<TextView>(R.id.change_img).setOnClickListener {
-            startActivity(Intent(activity as InstaMainActivity, InstaChangeProfileActivity::class.java))
-
-        }
     }
 }

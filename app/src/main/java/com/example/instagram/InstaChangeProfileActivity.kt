@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -79,11 +80,14 @@ class InstaChangeProfileActivity : AppCompatActivity() {
 
             retrofitService.changeProfile(userId, header, body, user).enqueue(object :Callback<Any>{
                 override fun onResponse(call: Call<Any>, response: Response<Any>) {
-                    TODO("Not yet implemented")
+                    if(response.isSuccessful){
+                        Toast.makeText(this@InstaChangeProfileActivity, "변경완료", Toast.LENGTH_SHORT).show()
+                        onBackPressed()
+                    }
                 }
 
                 override fun onFailure(call: Call<Any>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    Toast.makeText(this@InstaChangeProfileActivity, "변경실패", Toast.LENGTH_SHORT).show()
                 }
             })
         }
